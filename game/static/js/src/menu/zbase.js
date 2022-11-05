@@ -11,11 +11,12 @@ class AcGameMenu {
                          多人模式
                     </div>
 					<div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
-                         设置
+                         退出
                     </div>
 				</div>			
 			</div>
 		`);
+		this.$menu.hide();
 		this.root.$ac_game.append(this.$menu); // 将menu里面渲染的html加到ac_game指向的id里面
 		this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');
 		this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');
@@ -40,6 +41,7 @@ class AcGameMenu {
         });
 		this.$settings.click(function(){
              console.log("click settings");
+			 outer.root.settings.logout_on_remote();
         });
 	}
 
