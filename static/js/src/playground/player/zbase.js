@@ -57,7 +57,7 @@ class Player extends AcGameObject {
 			this.add_listening_events();
 		}else if (this.character === "robot"){
 			let tx = Math.random() * this.playground.width / this.playground.scale;
-			let ty = Math.random() * this.playground.width / this.playground.scale;
+			let ty = Math.random() * this.playground.height / this.playground.scale;
 			this.move_to(tx,ty);
 		}
 	
@@ -234,7 +234,7 @@ class Player extends AcGameObject {
 	}
 
 	update_move() { // 只负责更新玩家移动
-		if(Math.random() < 1 / 300.0 && this.spent_time > 4 && !this.character === "robot"){
+		if(Math.random() < 1 / 300.0 && this.spent_time > 4 && this.character === "robot"){
 			let player = this.playground.players[Math.floor(Math.random() * this.playground.players.length)];
 			let tx = player.x + player.speed * this.vx * this.timedelta / 1000 * 0.3;
 			let ty = player.y + player.speed * this.vy * this.timedelta / 1000 * 0.3;
@@ -250,7 +250,7 @@ class Player extends AcGameObject {
 			if(this.move_length < this.eps) {
 				this.move_length = 0;
 				this.vx = this.vy = 0;
-				if(!this.character === "robot"){
+				if(this.character === "robot"){
 		        	let tx = Math.random() * this.playground.width / this.playground.scale;
                     let ty = Math.random() * this.playground.height / this.playground.scale;
 		            this.move_to(tx,ty);
