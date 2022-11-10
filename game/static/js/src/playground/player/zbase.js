@@ -73,7 +73,7 @@ class Player extends AcGameObject {
 		this.playground.game_map.$canvas.mousedown(function(e) { // 对鼠标的监听
 
 			if(outer.playground.state !== "fighting"){
-				return false;
+				return true;
 			}
 			const rect = outer.ctx.canvas.getBoundingClientRect();
 			if(e.which === 3){
@@ -108,14 +108,26 @@ class Player extends AcGameObject {
 
                 outer.cur_skill = null;
             }
-		});	
+		});
 
-		$(window).keydown(function(e) { // 对键盘的监听
-			if(outer.playground.state !== "fighting"){
-				return true;
-			}
 
-			if (e.which === 81) {  // q
+
+		this.playground.game_map.$canvas.keydown(function(e) {  // 对键盘的监听
+            if (e.which === 13) {  // enter
+                if (outer.playground.mode === "multi mode") {  // 打开聊天框
+                    outer.playground.chat_field.show_input();
+                    return false;
+                }
+            } else if (e.which === 27) {  // esc
+                if (outer.playground.mode === "multi mode") {  // 关闭聊天框
+                    outer.playground.chat_field.hide_input();
+                }
+            }
+
+            if (outer.playground.state !== "fighting")
+                return true;
+
+            if (e.which === 81) {  // q
                 if (outer.fireball_coldtime > outer.eps)
                     return true;
 
@@ -128,7 +140,9 @@ class Player extends AcGameObject {
                 outer.cur_skill = "blink";
                 return false;
             }
-		});
+        });
+
+		
 	}	
 
 	shoot_fireball(tx, ty) {
